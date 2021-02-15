@@ -48,6 +48,7 @@ usuarioRutas.post('/entrar', (req, res) => {
                 mensaje: 'Datos incorrectos'
             });
         }
+        console.log(body.password);
         if (usuarioBD.compararContrasena(body.password)) {
             const miToken = token_1.default.getToken({
                 _id: usuarioBD._id,
@@ -57,6 +58,12 @@ usuarioRutas.post('/entrar', (req, res) => {
             res.json({
                 ok: true,
                 token: miToken
+            });
+        }
+        else {
+            return res.json({
+                ok: false,
+                mensaje: 'Datos incorrectos'
             });
         }
     });

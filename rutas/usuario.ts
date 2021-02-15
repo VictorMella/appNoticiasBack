@@ -45,12 +45,12 @@ usuarioRutas.post('/entrar', (req: Request, res: Response) => {
         }
         console.log(usuarioBD)
         if (!usuarioBD) {
-            return res.json({
+           return res.json({
                 ok: false,
                 mensaje: 'Datos incorrectos'
             })
         }
-
+console.log(body.password)
         if (usuarioBD.compararContrasena(body.password)) {
             const miToken = Token.getToken({
                 _id: usuarioBD._id,
@@ -60,6 +60,11 @@ usuarioRutas.post('/entrar', (req: Request, res: Response) => {
             res.json({
                 ok: true,
                 token: miToken
+            })
+        }else{
+            return res.json({
+                ok: false,
+                mensaje: 'Datos incorrectos'
             })
         }
     })
