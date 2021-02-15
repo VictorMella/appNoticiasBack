@@ -1,16 +1,16 @@
-import  mongoose  from 'mongoose'
+import mongoose from 'mongoose'
 import Server from './clases/server'
 import usuarioRutas from './rutas/usuario'
 import bodyParser from 'body-parser'
 
-const server = new Server();
+const server = new Server()
+
+//BODY PARSER
+server.app.use(bodyParser.urlencoded({ extended: true }))
+server.app.use(bodyParser.json())
 
 //RUTAS
 server.app.use('/usuario', usuarioRutas)
-
-//BODY PARSER
-server.app.use(bodyParser.urlencoded({extended: true}));
-server.app.use(bodyParser.json())
 
 //CONECTAR BD
 
@@ -22,14 +22,15 @@ mongoose.connect(
         useUnifiedTopology: true,
         useFindAndModify: false
     },
-    (err)=> {
-        if(err) throw "err";
+    (err) => {
+        if (err) throw "err"
         console.log('CONECTADO')
     }
 )
 
 
+
 //CONECTAR AL SERVER
-server.start(()=> {
+server.start(() => {
     console.log(`Servidor Victor corriendo en el puerto ${server.port}`)
 })

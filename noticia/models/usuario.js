@@ -10,7 +10,7 @@ const usuarioSchema = new mongoose_1.Schema({
     password: {
         type: String,
         unique: true,
-        required: [true, 'El password es obligatoria']
+        required: [true, 'La contraseña es obligatoria']
     }
 });
 exports.Usuario = mongoose_1.model('Usuario', usuarioSchema);

@@ -1,21 +1,22 @@
-import {Schema, model, Document} from 'mongoose'
+import { Schema, model, Document } from 'mongoose';
 
 const usuarioSchema = new Schema({
+
     nombre: {
         type: String,
         unique: true,
-        required:[true, 'El nombre es obligatorio']
+        required: [true, 'El nombre es obligatorio']
     },
+
     password: {
         type: String,
         unique: true,
-        required:[true, 'El password es obligatoria']
+        required: [true, 'La contraseña es obligatoria']
     }
-})
-
-interface iYo extends Document {
-    nombre : string,
-    password: string
+});
+interface IYo extends Document {
+    nombre: string;
+    password: string;
 }
 
-export const Usuario = model<iYo>('Usuario', usuarioSchema)
+export const Usuario = model<IYo>('Usuario', usuarioSchema)

@@ -8,11 +8,11 @@ const server_1 = __importDefault(require("./clases/server"));
 const usuario_1 = __importDefault(require("./rutas/usuario"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const server = new server_1.default();
-//RUTAS
-server.app.use('/usuario', usuario_1.default);
 //BODY PARSER
 server.app.use(body_parser_1.default.urlencoded({ extended: true }));
 server.app.use(body_parser_1.default.json());
+//RUTAS
+server.app.use('/usuario', usuario_1.default);
 //CONECTAR BD
 mongoose_1.default.connect('mongodb://localhost:27017/victorBase', {
     useNewUrlParser: true,
