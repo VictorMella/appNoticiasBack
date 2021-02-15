@@ -9,11 +9,7 @@ const server = new Server()
 server.app.use(bodyParser.urlencoded({ extended: true }))
 server.app.use(bodyParser.json())
 
-//RUTAS
-server.app.use('/usuario', usuarioRutas)
-
 //CONECTAR BD
-
 mongoose.connect(
     'mongodb://localhost:27017/victorBase',
     {
@@ -28,7 +24,8 @@ mongoose.connect(
     }
 )
 
-
+//RUTAS
+server.app.use('/usuario', usuarioRutas)
 
 //CONECTAR AL SERVER
 server.start(() => {

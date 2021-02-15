@@ -1,4 +1,5 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document } from 'mongoose'
+const bcrypt = require('bcrypt')
 
 const usuarioSchema = new Schema({
 
@@ -13,10 +14,22 @@ const usuarioSchema = new Schema({
         unique: true,
         required: [true, 'La contraseña es obligatoria']
     }
-});
+})
+
+usuarioSchema.method('compararContrasena', function(password: string = ''): boolean {
+
+    if (bcrypt.compareSync(password, this.password) ) {
+        return true
+    } else {
+        return false
+    }
+})
+
 interface IYo extends Document {
-    nombre: string;
-    password: string;
+    nombre: string
+    password: string
+    compararContrasena(password: string): boolean
 }
+
 
 export const Usuario = model<IYo>('Usuario', usuarioSchema)

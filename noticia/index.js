@@ -11,8 +11,6 @@ const server = new server_1.default();
 //BODY PARSER
 server.app.use(body_parser_1.default.urlencoded({ extended: true }));
 server.app.use(body_parser_1.default.json());
-//RUTAS
-server.app.use('/usuario', usuario_1.default);
 //CONECTAR BD
 mongoose_1.default.connect('mongodb://localhost:27017/victorBase', {
     useNewUrlParser: true,
@@ -24,6 +22,8 @@ mongoose_1.default.connect('mongodb://localhost:27017/victorBase', {
         throw "err";
     console.log('CONECTADO');
 });
+//RUTAS
+server.app.use('/usuario', usuario_1.default);
 //CONECTAR AL SERVER
 server.start(() => {
     console.log(`Servidor Victor corriendo en el puerto ${server.port}`);

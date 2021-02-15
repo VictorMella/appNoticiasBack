@@ -1,5 +1,7 @@
 import { Router, Request, Response } from 'express'
+import Token from '../clases/token'
 import { Usuario } from '../models/usuario'
+const bcrypt = require('bcrypt')
 
 const usuarioRutas = Router()
 
@@ -8,29 +10,62 @@ const usuarioRutas = Router()
 usuarioRutas.post('/crear', (req: Request, res: Response) => {
 
     const usuario = {
-        // nombre: 'victor',
-        // password: '1234'
         nombre: req.body.nombre,
-        password: req.body.password
+        password: bcrypt.hashSync(req.body.password, 10)
     }
-    console.dir(req.body);
-    res.json({
-        ok: true,
-        usuario
- 
-    })
-    console.log(req.body); // the posted data
-    // res.json({requestBody: req.body}) 
+    // res.json({
+    //     ok: true,
+    //     usuario
+    // })
 
     //Grabar Usuario
+    console.log(usuario)
+    Usuario.create(usuario)
+        .then(userBD => {
+            res.json({
+                ok: true,
+                usuario: userBD
+            });
+        })
+        .catch(err => {
+            res.json({
+                ok: false,
+                err
+            });
+        })
+})
 
-    // Usuario.create(usuario)
-    //     .then(userBD => {
-    //         res.json({
-    //             ok: true,
-    //             usuario: userBD
-    //         })
-    //     })
+// LOGIN
+usuarioRutas.post('/entrar', (req: Request, res: Response) => {
+    const body = req.body
+
+    Usuario.findOne({ nombre: body.nombre }, (err, usuarioBD) => {
+        if (err) {
+            console.log(err)
+        }
+        console.log(usuarioBD)
+        if (!usuarioBD) {
+            return res.json({
+                ok: false,
+                mensaje: 'Datos incorrectos'
+            })
+        }
+
+        if (usuarioBD.compararContrasena(body.password)) {
+            const miToken = Token.getToken({
+                _id: usuarioBD._id,
+                nombre: usuarioBD.nombre,
+                password: usuarioBD.password,
+            })
+            res.json({
+                ok: true,
+                token: miToken
+            })
+        }
+    })
+
+
 })
 
 export default usuarioRutas
+
