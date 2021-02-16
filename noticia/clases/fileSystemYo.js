@@ -33,5 +33,9 @@ class FileSystemYo {
         }
         return pathYo;
     }
+    getImgUrl(img, nombreCarpeta) {
+        const pathImagen = path_1.default.resolve(__dirname, `../upload/${nombreCarpeta}`, img);
+        return pathImagen;
+    }
 }
 exports.default = FileSystemYo;

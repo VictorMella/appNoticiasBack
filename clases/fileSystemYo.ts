@@ -1,7 +1,5 @@
 import path from 'path'
 import fs from 'fs'
-
-
 export default class FileSystemYo {
     constructor() { }
 
@@ -31,6 +29,11 @@ export default class FileSystemYo {
         }
 
         return pathYo
+    }
+
+    getImgUrl(img: string, nombreCarpeta: string){
+        const pathImagen = path.resolve(__dirname, `../upload/${nombreCarpeta}`, img)
+        return pathImagen
     }
 
 
