@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express'
 import Token from '../clases/token'
+import { verificarToken } from '../middelwares/autentication'
 import { Usuario } from '../models/usuario'
 const bcrypt = require('bcrypt')
 
@@ -13,13 +14,8 @@ usuarioRutas.post('/crear', (req: Request, res: Response) => {
         nombre: req.body.nombre,
         password: bcrypt.hashSync(req.body.password, 10)
     }
-    // res.json({
-    //     ok: true,
-    //     usuario
-    // })
 
     //Grabar Usuario
-    console.log(usuario)
     Usuario.create(usuario)
         .then(userBD => {
             res.json({
@@ -40,17 +36,14 @@ usuarioRutas.post('/entrar', (req: Request, res: Response) => {
     const body = req.body
 
     Usuario.findOne({ nombre: body.nombre }, (err, usuarioBD) => {
-        if (err) {
-            console.log(err)
-        }
-        console.log(usuarioBD)
+        if (err) throw err;
         if (!usuarioBD) {
            return res.json({
                 ok: false,
                 mensaje: 'Datos incorrectos'
             })
         }
-console.log(body.password)
+
         if (usuarioBD.compararContrasena(body.password)) {
             const miToken = Token.getToken({
                 _id: usuarioBD._id,
@@ -68,9 +61,51 @@ console.log(body.password)
             })
         }
     })
-
-
 })
+
+// Actualizar mi usuario
+usuarioRutas.post('/update', verificarToken, (req: any, res: Response) => {
+
+    const usuario = {
+        nombre: req.body.nombre || req.usuario.nombre,
+        password: req.body.password || req.usuario.password
+    }
+
+    Usuario.findByIdAndUpdate(req.usuario._id, usuario, { new: true }, (err, userDB) => {
+
+        if (err) throw err;
+        if (!userDB) {
+            return res.json({
+                ok: false,
+                mensaje: 'Datos incorrectos'
+            });
+        }
+        const miToken = Token.getToken({
+            _id: userDB._id,
+            nombre: userDB.nombre,
+            password: userDB.password
+
+        });
+        res.json({
+            ok: true,
+            token: miToken
+        });
+    });
+});
+
+
+// Get usuario
+usuarioRutas.get('/', async (req: any, res: Response) => {
+
+    const user = await Usuario.find()
+        .limit(1) // Limit es para el número de usuarios que queremos obtener
+        .exec();
+
+    res.json({
+        ok: true,
+        user
+    });
+});
 
 export default usuarioRutas
 
