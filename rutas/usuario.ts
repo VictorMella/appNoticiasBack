@@ -98,7 +98,7 @@ usuarioRutas.post('/update', verificarToken, (req: any, res: Response) => {
 usuarioRutas.get('/', async (req: any, res: Response) => {
 
     const user = await Usuario.find()
-        .limit(1) // Limit es para el número de usuarios que queremos obtener
+        .limit(10) // Limit es para el número de usuarios que queremos obtener
         .exec();
 
     res.json({

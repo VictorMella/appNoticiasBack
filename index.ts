@@ -5,6 +5,9 @@ import bodyParser from 'body-parser'
 import contactoRutas from './rutas/contacto'
 import yoRutas from './rutas/imagenesYo'
 import fileupload from 'express-fileupload'
+import sobreMiRutas from './rutas/sobreMi'
+import tecnologiasRutas from './rutas/tecnologias'
+import noticiasRutas from './rutas/noticias'
 
 const server = new Server()
 
@@ -34,6 +37,9 @@ mongoose.connect(
 server.app.use('/usuario', usuarioRutas)
 server.app.use('/contacto', contactoRutas)
 server.app.use('/uploadYo', yoRutas)
+server.app.use('/sobreMi', sobreMiRutas)
+server.app.use('/tecnologias', tecnologiasRutas)
+server.app.use('/noticias', noticiasRutas)
 
 //CONECTAR AL SERVER
 server.start(() => {

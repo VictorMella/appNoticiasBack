@@ -99,7 +99,7 @@ usuarioRutas.post('/update', autentication_1.verificarToken, (req, res) => {
 // Get usuario
 usuarioRutas.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield usuario_1.Usuario.find()
-        .limit(1) // Limit es para el número de usuarios que queremos obtener
+        .limit(10) // Limit es para el número de usuarios que queremos obtener
         .exec();
     res.json({
         ok: true,

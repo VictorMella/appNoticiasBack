@@ -6,11 +6,11 @@ const contactoSchema = new Schema({
     },
     email: {
         type: String,
-        required: [true, 'El email es obligatoria']
+        required: [true, 'El email es obligatorio']
     },
     mensaje: {
         type: String,
-        required: [true, 'El mensaje es obligatoria']
+        required: [true, 'El mensaje es obligatorio']
     }
 })
 

@@ -7,11 +7,11 @@ const contactoSchema = new mongoose_1.Schema({
     },
     email: {
         type: String,
-        required: [true, 'El email es obligatoria']
+        required: [true, 'El email es obligatorio']
     },
     mensaje: {
         type: String,
-        required: [true, 'El mensaje es obligatoria']
+        required: [true, 'El mensaje es obligatorio']
     }
 });
 contactoSchema.pre('save', function (next) {
