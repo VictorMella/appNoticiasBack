@@ -5,33 +5,51 @@ import FileSystemNoticias from '../clases/fileSystemNoticias'
 import fs from 'fs'
 import path from 'path'
 
-const noticiasRutas = Router();
-const fileSystemNoticias = new FileSystemNoticias();
+const noticiasRutas = Router()
+const fileSystemNoticias = new FileSystemNoticias()
 
 // Crear Noticia
 noticiasRutas.post('/:imgNoticia/:imgAutor', verificarToken, (req: any, res: Response) => {
     const body = req.body
-    const imgNoticia = req.params.imgNoticia;
-    const imgAutor = req.params.imgAutor;
+    const imgNoticia = req.params.imgNoticia
+    const imgAutor = req.params.imgAutor
 
     body.imgNoticia = imgNoticia
     body.imgAutor = imgAutor
 
     Noticias.create(body)
-    .then(noticiaBD => {
-        res.json({
-            ok: true,
-            noticiaBD
+        .then(noticiaBD => {
+            res.json({
+                ok: true,
+                noticiaBD
+            })
         })
-    })
-    .catch(err => {
-       res.json({
-           err
-       })
-    })
+        .catch(err => {
+            res.json({
+                err
+            })
+        })
 
 })
 
+// NOTICIAS PAGINADAS
+noticiasRutas.get('/', async (req: any, res: Response) => {
+    let pagina = Number(req.query.pagina) || 1
+    let saltar = pagina - 1
+    saltar = saltar * 8
+    const noticias = await Noticias.find()
+        .sort({_id: 1})
+        .skip(saltar)
+        .limit(8) // Limit es para el número de usuarios que queremos obtener
+        .exec()
+
+    res.json({
+        ok: true,
+        pagina,
+        cantidadRegistros: noticias.length ,
+        noticias
+    })
+})
 // MOSTRAR IMAGEN POR URL
 // noticiasRutas.get('/victorMella/:img/:nombreCarpeta', (req: any, res: Response) => {    
 //     const img = req.params.img;
