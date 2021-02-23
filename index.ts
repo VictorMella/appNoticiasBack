@@ -1,7 +1,10 @@
 import mongoose from 'mongoose'
 import Server from './clases/server'
-import usuarioRutas from './rutas/usuario'
 import bodyParser from 'body-parser'
+import cors from 'cors'
+
+// RUTAS
+import usuarioRutas from './rutas/usuario'
 import contactoRutas from './rutas/contacto'
 import yoRutas from './rutas/imagenesYo'
 import fileupload from 'express-fileupload'
@@ -9,11 +12,15 @@ import sobreMiRutas from './rutas/sobreMi'
 import tecnologiasRutas from './rutas/tecnologias'
 import noticiasRutas from './rutas/noticias'
 
+
 const server = new Server()
 
 //BODY PARSER
 server.app.use(bodyParser.urlencoded({ extended: true }))
 server.app.use(bodyParser.json())
+
+// CORS
+server.app.use(cors({origin: true, credentials: true}))
 
 // FILEUPLOAR
 server.app.use(fileupload())

@@ -55,33 +55,34 @@ noticiasRutas.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function*
         noticias
     });
 }));
-// MOSTRAR IMAGEN POR URL
-// noticiasRutas.get('/victorMella/:img/:nombreCarpeta', (req: any, res: Response) => {    
-//     const img = req.params.img;
-//     const nombreCarpeta = req.params.nombreCarpeta;
-//     const pathImagen = fileSystemNoticias.getImgUrl(img, nombreCarpeta);
-//     res.sendFile(pathImagen)
-// })
-// noticiasRutas.post('/update',verificarToken, (req: any, res: Response) => {
-//     const file = req.files.img;
-//     fileSystemNoticias.guardarImagenYo(file, req.usuario.nombre)
-//     res.json({
-//         ok: true,
-//         mensaje:'Imagen actualizada'
-//     });
-// })
-// noticiasRutas.delete('/:nombreCarpeta/:id/:name',verificarToken, (req: any, res: Response) => {
-//     const id = req.params.id;
-//     const name = req.params.name;
-//     const nombreCarpeta = req.params.nombreCarpeta;
-//     Noticias.findByIdAndRemove(id, { new: true }, (err, imgBorrar) => {
-//         if(err) throw err;
-//         res.json({
-//             ok: true,
-//             mensaje: 'Imagen borrada',
-//             body: imgBorrar
-//         })
-//        fs.unlinkSync(path.resolve(__dirname, `../upload/${nombreCarpeta}`, name))
-//     })
-// })
+// SUBIR IMAGEN AUTOR
+noticiasRutas.post('/uploadImgAutor', autentication_1.verificarToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const file1 = req.files.imgAutor;
+    yield fileSystemNoticias.guardarImgAutor(file1);
+    res.json({
+        ok: true,
+        file1: file1.name
+    });
+}));
+// SUBIR IMAGEN NOTICIA
+noticiasRutas.post('/uploadImgNoticia', autentication_1.verificarToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const file1 = req.files.imgNoticia;
+    yield fileSystemNoticias.guardarImgNoticia(file1);
+    res.json({
+        ok: true,
+        file1: file1.name
+    });
+}));
+// MOSTRAR IMAGEN NOTICIA POR URL
+noticiasRutas.get('/imgNoticia/:imgNoticia', (req, res) => {
+    const img = req.params.imgNoticia;
+    const pathImagen = fileSystemNoticias.getImgUrlNoticia(img);
+    res.sendFile(pathImagen);
+});
+// MOSTRAR IMAGEN AUTOR POR URL
+noticiasRutas.get('/imgAutor/:imgAutor', (req, res) => {
+    const img = req.params.imgAutor;
+    const pathImagen = fileSystemNoticias.getImgUrlAutor(img);
+    res.sendFile(pathImagen);
+});
 exports.default = noticiasRutas;

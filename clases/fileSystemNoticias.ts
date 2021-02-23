@@ -4,7 +4,7 @@ import fs from 'fs'
 export default class FileSystemNoticias {
     constructor() { }
 
-    guardarImg(file: any) {
+    guardarImgNoticia(file: any) {
         return new Promise((resolve, reject) => {
             // CREAR CARPETA
             const path = this.crearCarpetaImagenNoticia()
@@ -32,13 +32,13 @@ export default class FileSystemNoticias {
         return pathImagenNoticia
     }
 
-    getImgUrl(img: string){
+    getImgUrlNoticia(img: string){
         const pathImgNoticia = path.resolve(__dirname, '../upload', 'imgNoticia', img)
         return pathImgNoticia
     }
 
     // IMAGEN AUTOR
-    guardarImgYo(file: any) {
+    guardarImgAutor(file: any) {
         return new Promise((resolve, reject) => {
             // CREAR CARPETA
             const path = this.crearCarpetaImagenYo()
@@ -66,7 +66,7 @@ export default class FileSystemNoticias {
         return pathImagenAutor
     }
 
-    getImgUrlYo(img: string){
+    getImgUrlAutor(img: string){
         const pathImagenAutor = path.resolve(__dirname, '../upload', 'imgAutor', img)
         return pathImagenAutor
     }

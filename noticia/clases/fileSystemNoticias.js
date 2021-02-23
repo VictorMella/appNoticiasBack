@@ -7,7 +7,7 @@ const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 class FileSystemNoticias {
     constructor() { }
-    guardarImg(file) {
+    guardarImgNoticia(file) {
         return new Promise((resolve, reject) => {
             // CREAR CARPETA
             const path = this.crearCarpetaImagenNoticia();
@@ -33,12 +33,12 @@ class FileSystemNoticias {
         }
         return pathImagenNoticia;
     }
-    getImgUrl(img) {
+    getImgUrlNoticia(img) {
         const pathImgNoticia = path_1.default.resolve(__dirname, '../upload', 'imgNoticia', img);
         return pathImgNoticia;
     }
     // IMAGEN AUTOR
-    guardarImgYo(file) {
+    guardarImgAutor(file) {
         return new Promise((resolve, reject) => {
             // CREAR CARPETA
             const path = this.crearCarpetaImagenYo();
@@ -64,7 +64,7 @@ class FileSystemNoticias {
         }
         return pathImagenAutor;
     }
-    getImgUrlYo(img) {
+    getImgUrlAutor(img) {
         const pathImagenAutor = path_1.default.resolve(__dirname, '../upload', 'imgAutor', img);
         return pathImagenAutor;
     }

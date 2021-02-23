@@ -50,38 +50,43 @@ noticiasRutas.get('/', async (req: any, res: Response) => {
         noticias
     })
 })
-// MOSTRAR IMAGEN POR URL
-// noticiasRutas.get('/victorMella/:img/:nombreCarpeta', (req: any, res: Response) => {    
-//     const img = req.params.img;
-//     const nombreCarpeta = req.params.nombreCarpeta;
-//     const pathImagen = fileSystemNoticias.getImgUrl(img, nombreCarpeta);
-//     res.sendFile(pathImagen)
-// })
+// SUBIR IMAGEN AUTOR
+noticiasRutas.post('/uploadImgAutor', verificarToken, async (req: any, res: Response) => {
+    const file1 = req.files.imgAutor
+    await fileSystemNoticias.guardarImgAutor(file1)
 
-// noticiasRutas.post('/update',verificarToken, (req: any, res: Response) => {
-//     const file = req.files.img;
-//     fileSystemNoticias.guardarImagenYo(file, req.usuario.nombre)
-//     res.json({
-//         ok: true,
-//         mensaje:'Imagen actualizada'
-//     });
-// })
+    res.json({
+        ok: true,
+        file1: file1.name
+    })    
+})
 
-// noticiasRutas.delete('/:nombreCarpeta/:id/:name',verificarToken, (req: any, res: Response) => {
-//     const id = req.params.id;
-//     const name = req.params.name;
-//     const nombreCarpeta = req.params.nombreCarpeta;
-//     Noticias.findByIdAndRemove(id, { new: true }, (err, imgBorrar) => {
-//         if(err) throw err;
-//         res.json({
-//             ok: true,
-//             mensaje: 'Imagen borrada',
-//             body: imgBorrar
-//         })
 
-//        fs.unlinkSync(path.resolve(__dirname, `../upload/${nombreCarpeta}`, name))
-//     })
-// })
+// SUBIR IMAGEN NOTICIA
+noticiasRutas.post('/uploadImgNoticia', verificarToken, async (req: any, res: Response) => {
+    const file1 = req.files.imgNoticia
+    await fileSystemNoticias.guardarImgNoticia(file1)
+
+    res.json({
+        ok: true,
+        file1: file1.name
+    })    
+})
+
+// MOSTRAR IMAGEN NOTICIA POR URL
+noticiasRutas.get('/imgNoticia/:imgNoticia', (req: any, res: Response) => {    
+    const img = req.params.imgNoticia;
+    const pathImagen = fileSystemNoticias.getImgUrlNoticia(img);
+    res.sendFile(pathImagen)
+})
+
+// MOSTRAR IMAGEN AUTOR POR URL
+noticiasRutas.get('/imgAutor/:imgAutor', (req: any, res: Response) => {    
+    const img = req.params.imgAutor;
+    const pathImagen = fileSystemNoticias.getImgUrlAutor(img);
+    res.sendFile(pathImagen)
+})
+
 
 export default noticiasRutas
 
