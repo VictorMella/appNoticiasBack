@@ -50,9 +50,9 @@ const noticiasSchema = new Schema({
     },
 })
 
-noticiasSchema.pre<INoticias>('save', function(next) {
-    this.created = new Date();
-    next();
+noticiasSchema.pre<INoticias>('save', function (next) {
+    this.created = new Date()
+    next()
 })
 
 export const Noticias = model<INoticias>('Noticias', noticiasSchema)

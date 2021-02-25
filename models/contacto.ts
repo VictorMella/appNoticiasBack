@@ -14,9 +14,9 @@ const contactoSchema = new Schema({
     }
 })
 
-contactoSchema.pre<IContacto>('save', function(next) {
-    this.created = new Date();
-    next();
+contactoSchema.pre<IContacto>('save', function (next) {
+    this.created = new Date()
+    next()
 })
 
 interface IContacto extends Document {

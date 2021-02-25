@@ -1,7 +1,7 @@
 import { Schema, model, Document } from 'mongoose'
 const bcrypt = require('bcrypt')
 
-interface IYo extends Document{
+interface IYo extends Document {
     nombre: string
     password: string
     compararContrasena(password: string): boolean
@@ -20,9 +20,9 @@ const usuarioSchema = new Schema({
     }
 })
 
-usuarioSchema.method('compararContrasena', function(password: string = ''): boolean {
+usuarioSchema.method('compararContrasena', function (password: string = ''): boolean {
 
-    if (bcrypt.compareSync(password, this.password) ) {
+    if (bcrypt.compareSync(password, this.password)) {
         return true
     } else {
         return false

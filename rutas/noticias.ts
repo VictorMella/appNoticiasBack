@@ -38,7 +38,7 @@ noticiasRutas.get('/', async (req: any, res: Response) => {
     let saltar = pagina - 1
     saltar = saltar * 8
     const noticias = await Noticias.find()
-        .sort({_id: 1})
+        .sort({ _id: 1 })
         .skip(saltar)
         .limit(8) // Limit es para el número de usuarios que queremos obtener
         .exec()
@@ -46,7 +46,7 @@ noticiasRutas.get('/', async (req: any, res: Response) => {
     res.json({
         ok: true,
         pagina,
-        cantidadRegistros: noticias.length ,
+        cantidadRegistros: noticias.length,
         noticias
     })
 })
@@ -58,7 +58,7 @@ noticiasRutas.post('/uploadImgAutor', verificarToken, async (req: any, res: Resp
     res.json({
         ok: true,
         file1: file1.name
-    })    
+    })
 })
 
 
@@ -70,20 +70,20 @@ noticiasRutas.post('/uploadImgNoticia', verificarToken, async (req: any, res: Re
     res.json({
         ok: true,
         file1: file1.name
-    })    
+    })
 })
 
 // MOSTRAR IMAGEN NOTICIA POR URL
-noticiasRutas.get('/imgNoticia/:imgNoticia', (req: any, res: Response) => {    
-    const img = req.params.imgNoticia;
-    const pathImagen = fileSystemNoticias.getImgUrlNoticia(img);
+noticiasRutas.get('/imgNoticia/:imgNoticia', (req: any, res: Response) => {
+    const img = req.params.imgNoticia
+    const pathImagen = fileSystemNoticias.getImgUrlNoticia(img)
     res.sendFile(pathImagen)
 })
 
 // MOSTRAR IMAGEN AUTOR POR URL
-noticiasRutas.get('/imgAutor/:imgAutor', (req: any, res: Response) => {    
-    const img = req.params.imgAutor;
-    const pathImagen = fileSystemNoticias.getImgUrlAutor(img);
+noticiasRutas.get('/imgAutor/:imgAutor', (req: any, res: Response) => {
+    const img = req.params.imgAutor
+    const pathImagen = fileSystemNoticias.getImgUrlAutor(img)
     res.sendFile(pathImagen)
 })
 

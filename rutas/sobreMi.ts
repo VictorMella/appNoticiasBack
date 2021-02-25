@@ -54,14 +54,14 @@ sobreMiRutas.post('/update/:id', verificarToken, (req: Request, res: Response) =
 sobreMiRutas.get('/', async (req: any, res: Response) => {
 
     const sobreMiBD = await SobreMi.find()
-        .sort({_id: -1})
+        .sort({ _id: -1 })
         .limit(10) // Limit es para el número de usuarios que queremos obtener
-        .exec();
+        .exec()
 
     res.json({
         ok: true,
         sobreMiBD
-    });
-});
+    })
+})
 
 export default sobreMiRutas

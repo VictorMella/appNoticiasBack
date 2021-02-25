@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express'
 import { verificarToken } from '../middelwares/autentication'
 import { Tecnologias } from '../models/tecnologias'
 
-const tecnologiasRutas = Router();
+const tecnologiasRutas = Router()
 
 // CREAR TECNOLOGIAS
 
@@ -50,27 +50,27 @@ tecnologiasRutas.post('/update/:id', verificarToken, (req: Request, res: Respons
 
 // BORRAR TECNOLOGIAS
 tecnologiasRutas.delete('/:id', (req: Request, res: Response) => {
-    const id = req.params.id;
+    const id = req.params.id
     Tecnologias.findByIdAndRemove(id, { new: true }, (err, tecnologiaBD) => {
-        if(err) throw err;
+        if (err) throw err
         res.json({
             ok: true,
             mensaje: 'Tecnologia borrada',
             body: tecnologiaBD
         })
-    }) 
+    })
 })
 
 // Get TECNOLOGIAS
 tecnologiasRutas.get('/', async (req: any, res: Response) => {
-    const tecnologiaBD = await Tecnologias.find()      
+    const tecnologiaBD = await Tecnologias.find()
         .limit(10) // Limit es para el número de usuarios que queremos obtener
-        .exec();
+        .exec()
 
     res.json({
         ok: true,
         tecnologiaBD
-    });
-});
+    })
+})
 
 export default tecnologiasRutas

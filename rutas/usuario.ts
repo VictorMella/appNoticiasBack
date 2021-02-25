@@ -21,13 +21,13 @@ usuarioRutas.post('/crear', (req: Request, res: Response) => {
             res.json({
                 ok: true,
                 usuario: userBD
-            });
+            })
         })
         .catch(err => {
             res.json({
                 ok: false,
                 err
-            });
+            })
         })
 })
 
@@ -36,9 +36,9 @@ usuarioRutas.post('/entrar', (req: Request, res: Response) => {
     const body = req.body
 
     Usuario.findOne({ nombre: body.nombre }, (err, usuarioBD) => {
-        if (err) throw err;
+        if (err) throw err
         if (!usuarioBD) {
-           return res.json({
+            return res.json({
                 ok: false,
                 mensaje: 'Datos incorrectos'
             })
@@ -54,7 +54,7 @@ usuarioRutas.post('/entrar', (req: Request, res: Response) => {
                 ok: true,
                 token: miToken
             })
-        }else{
+        } else {
             return res.json({
                 ok: false,
                 mensaje: 'Datos incorrectos'
@@ -73,25 +73,25 @@ usuarioRutas.post('/update', verificarToken, (req: any, res: Response) => {
 
     Usuario.findByIdAndUpdate(req.usuario._id, usuario, { new: true }, (err, userDB) => {
 
-        if (err) throw err;
+        if (err) throw err
         if (!userDB) {
             return res.json({
                 ok: false,
                 mensaje: 'Datos incorrectos'
-            });
+            })
         }
         const miToken = Token.getToken({
             _id: userDB._id,
             nombre: userDB.nombre,
             password: userDB.password
 
-        });
+        })
         res.json({
             ok: true,
             token: miToken
-        });
-    });
-});
+        })
+    })
+})
 
 
 // Get usuario
@@ -99,13 +99,13 @@ usuarioRutas.get('/', async (req: any, res: Response) => {
 
     const user = await Usuario.find()
         .limit(10) // Limit es para el número de usuarios que queremos obtener
-        .exec();
+        .exec()
 
     res.json({
         ok: true,
         user
-    });
-});
+    })
+})
 
 export default usuarioRutas
 

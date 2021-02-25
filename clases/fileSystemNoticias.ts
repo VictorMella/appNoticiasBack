@@ -9,30 +9,30 @@ export default class FileSystemNoticias {
             // CREAR CARPETA
             const path = this.crearCarpetaImagenNoticia()
             // NOMBRE DEL ARCHIVO
-            const nombreArchivo = file.name;
+            const nombreArchivo = file.name
             // MOVER ARCHIVO
             file.mv(`${path}/${nombreArchivo}`, (err: any) => {
-                if(err){
-                    reject();
-                }else{
+                if (err) {
+                    reject()
+                } else {
                     const mensaje = 'Archivo cuardado correctamente'
-                    resolve(mensaje);
+                    resolve(mensaje)
                 }
             })
         })
     }
 
-    private crearCarpetaImagenNoticia(){
+    private crearCarpetaImagenNoticia() {
         const pathImagenNoticia = path.resolve(__dirname, '../upload/imgNoticia')
         const existe = fs.existsSync(pathImagenNoticia)
-        if(!existe){
+        if (!existe) {
             fs.mkdirSync(pathImagenNoticia)
         }
 
         return pathImagenNoticia
     }
 
-    getImgUrlNoticia(img: string){
+    getImgUrlNoticia(img: string) {
         const pathImgNoticia = path.resolve(__dirname, '../upload', 'imgNoticia', img)
         return pathImgNoticia
     }
@@ -43,30 +43,30 @@ export default class FileSystemNoticias {
             // CREAR CARPETA
             const path = this.crearCarpetaImagenYo()
             // NOMBRE DEL ARCHIVO
-            const nombreArchivo = file.name;
+            const nombreArchivo = file.name
             // MOVER ARCHIVO
             file.mv(`${path}/${nombreArchivo}`, (err: any) => {
-                if(err){
-                    reject();
-                }else{
+                if (err) {
+                    reject()
+                } else {
                     const mensaje = 'Archivo cuardado correctamente'
-                    resolve(mensaje);
+                    resolve(mensaje)
                 }
             })
         })
     }
 
-    private crearCarpetaImagenYo(){
+    private crearCarpetaImagenYo() {
         const pathImagenAutor = path.resolve(__dirname, '../upload/imgAutor')
         const existe = fs.existsSync(pathImagenAutor)
-        if(!existe){
+        if (!existe) {
             fs.mkdirSync(pathImagenAutor)
         }
 
         return pathImagenAutor
     }
 
-    getImgUrlAutor(img: string){
+    getImgUrlAutor(img: string) {
         const pathImagenAutor = path.resolve(__dirname, '../upload', 'imgAutor', img)
         return pathImagenAutor
     }

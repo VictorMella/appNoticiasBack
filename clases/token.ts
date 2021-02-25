@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken'
 
 export default class Token {
 
@@ -11,10 +11,8 @@ export default class Token {
     static getToken(payload: any): string {
 
         return jwt.sign({
-
             usuario: payload
-
-        }, this.semilla, { expiresIn: this.caducidad });
+        }, this.semilla, { expiresIn: this.caducidad })
     }
 
 
@@ -23,14 +21,12 @@ export default class Token {
         return new Promise((resolve, reject) => {
 
             jwt.verify(userToken, this.semilla, (err, decoded) => {
-
                 if (err) {
-                    reject();
+                    reject()
                 } else {
-                    resolve(decoded);
+                    resolve(decoded)
                 }
-            });
-        });
+            })
+        })
     }
-
 }
