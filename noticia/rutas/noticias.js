@@ -42,17 +42,22 @@ noticiasRutas.post('/:imgNoticia/:imgAutor', autentication_1.verificarToken, (re
 noticiasRutas.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let pagina = Number(req.query.pagina) || 1;
     let saltar = pagina - 1;
-    saltar = saltar * 8;
+    const registrosPorPagina = 3;
+    saltar = saltar * registrosPorPagina;
     const noticias = yield noticias_1.Noticias.find()
-        .sort({ _id: 1 })
+        .sort({ _id: -1 })
         .skip(saltar)
-        .limit(8) // Limit es para el número de usuarios que queremos obtener
+        .limit(registrosPorPagina) // Limit es para el número de usuarios que queremos obtener
+        .exec();
+    const totalNoticias = yield noticias_1.Noticias.find()
         .exec();
     res.json({
         ok: true,
         pagina,
         cantidadRegistros: noticias.length,
-        noticias
+        registrosPorPagina: registrosPorPagina,
+        totalRegistros: totalNoticias.length,
+        noticias,
     });
 }));
 // SUBIR IMAGEN AUTOR

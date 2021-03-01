@@ -36,18 +36,23 @@ noticiasRutas.post('/:imgNoticia/:imgAutor', verificarToken, (req: any, res: Res
 noticiasRutas.get('/', async (req: any, res: Response) => {
     let pagina = Number(req.query.pagina) || 1
     let saltar = pagina - 1
-    saltar = saltar * 8
+    const registrosPorPagina = 3
+    saltar = saltar * registrosPorPagina
     const noticias = await Noticias.find()
-        .sort({ _id: 1 })
+        .sort({ _id: -1 })
         .skip(saltar)
-        .limit(8) // Limit es para el número de usuarios que queremos obtener
+        .limit(registrosPorPagina) // Limit es para el número de usuarios que queremos obtener
+        .exec()
+    const totalNoticias = await Noticias.find()    
         .exec()
 
     res.json({
         ok: true,
         pagina,
         cantidadRegistros: noticias.length,
-        noticias
+        registrosPorPagina: registrosPorPagina,
+        totalRegistros: totalNoticias.length,
+        noticias,
     })
 })
 // SUBIR IMAGEN AUTOR
