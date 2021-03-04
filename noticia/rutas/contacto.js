@@ -48,8 +48,11 @@ contactoRutas.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function*
         .sort({ _id: -1 })
         .limit(30) // Limit es para el número de usuarios que queremos obtener
         .exec();
+    const totalMensajes = yield contacto_1.Contacto.find()
+        .exec();
     res.json({
         ok: true,
+        totalRegistros: totalMensajes.length,
         mensajes
     });
 }));

@@ -42,9 +42,12 @@ contactoRutas.get('/', async (req: any, res: Response) => {
         .sort({ _id: -1 })
         .limit(30) // Limit es para el número de usuarios que queremos obtener
         .exec()
+    const totalMensajes = await Contacto.find()    
+        .exec()
 
     res.json({
         ok: true,
+        totalRegistros: totalMensajes.length,
         mensajes
     })
 })
