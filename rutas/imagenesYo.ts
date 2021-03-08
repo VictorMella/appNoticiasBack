@@ -42,7 +42,22 @@ yoRutas.get('/victorMella/:img/:nombreCarpeta', (req: any, res: Response) => {
     res.sendFile(pathImagen)
 })
 
+// MOSTRAR IMAGEN POR URL
+yoRutas.get('/', async (req: any, res: Response) => {
+
+    const imagenes = await Imgyo.find()
+        .exec()
+
+    res.json({
+        ok: true,
+        imagenes
+    })
+})
+
+
 yoRutas.post('/update', verificarToken, (req: any, res: Response) => {
+    console.log('REQUEST',req.params.usuario)
+    console.log('REQUEST',req)
     const file = req.files.img
     fileSystemYo.guardarImagenYo(file, req.usuario.nombre)
     res.json({
