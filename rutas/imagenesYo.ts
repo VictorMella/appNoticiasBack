@@ -56,8 +56,6 @@ yoRutas.get('/', async (req: any, res: Response) => {
 
 
 yoRutas.post('/update', verificarToken, (req: any, res: Response) => {
-    console.log('REQUEST',req.params.usuario)
-    console.log('REQUEST',req)
     const file = req.files.img
     fileSystemYo.guardarImagenYo(file, req.usuario.nombre)
     res.json({

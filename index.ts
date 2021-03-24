@@ -36,7 +36,7 @@ mongoose.connect(
     },
     (err) => {
         if (err) throw "err"
-        console.log('CONECTADO')
+        console.log('CONECTADO BD')
     }
 )
 
@@ -52,3 +52,8 @@ server.app.use('/noticias', noticiasRutas)
 server.start(() => {
     console.log(`Servidor Victor corriendo en el puerto ${server.port}`)
 })
+
+// CORRER PROYECTO
+// nodemon noticias
+// VISUALIZAR CAMBIOS
+// tsc -w

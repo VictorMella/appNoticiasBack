@@ -58,8 +58,6 @@ yoRutas.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
 }));
 yoRutas.post('/update', autentication_1.verificarToken, (req, res) => {
-    console.log('REQUEST', req.params.usuario);
-    console.log('REQUEST', req);
     const file = req.files.img;
     fileSystemYo.guardarImagenYo(file, req.usuario.nombre);
     res.json({

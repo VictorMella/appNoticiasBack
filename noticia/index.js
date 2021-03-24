@@ -32,7 +32,7 @@ mongoose_1.default.connect('mongodb://localhost:27017/victorBase', {
 }, (err) => {
     if (err)
         throw "err";
-    console.log('CONECTADO');
+    console.log('CONECTADO BD');
 });
 //RUTAS
 server.app.use('/usuario', usuario_1.default);
@@ -45,3 +45,7 @@ server.app.use('/noticias', noticias_1.default);
 server.start(() => {
     console.log(`Servidor Victor corriendo en el puerto ${server.port}`);
 });
+// CORRER PROYECTO
+// nodemon noticias
+// VISUALIZAR CAMBIOS
+// tsc -w
