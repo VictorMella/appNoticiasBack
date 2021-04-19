@@ -59,11 +59,25 @@ yoRutas.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 }));
 yoRutas.post('/update', autentication_1.verificarToken, (req, res) => {
     const file = req.files.img;
-    fileSystemYo.guardarImagenYo(file, req.usuario.nombre);
-    res.json({
-        ok: true,
-        mensaje: 'Imagen actualizada'
+    fileSystemYo.guardarImagenYo(file, req.usuario.nombre)
+        .then(resp => {
+        if (resp) {
+            setTimeout(() => {
+                res.json({
+                    ok: true,
+                    mensaje: 'Imagen actualizada'
+                });
+            }, 1500);
+        }
     });
+    yoRutas.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const imagenes = yield imagenesYo_1.Imgyo.find()
+            .exec();
+        res.json({
+            ok: true,
+            imagenes
+        });
+    }));
 });
 yoRutas.delete('/:nombreCarpeta/:id/:name', autentication_1.verificarToken, (req, res) => {
     const id = req.params.id;

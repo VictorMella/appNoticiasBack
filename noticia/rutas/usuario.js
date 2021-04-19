@@ -16,13 +16,14 @@ const express_1 = require("express");
 const token_1 = __importDefault(require("../clases/token"));
 const autentication_1 = require("../middelwares/autentication");
 const usuario_1 = require("../models/usuario");
-const bcrypt = require('bcrypt');
+const bcrypt_1 = require("bcrypt");
+// const bcrypt = require('bcrypt')
 const usuarioRutas = express_1.Router();
 //CREAR USUARIO
 usuarioRutas.post('/crear', (req, res) => {
     const usuario = {
         nombre: req.body.nombre,
-        password: bcrypt.hashSync(req.body.password, 10)
+        password: bcrypt_1.bcrypt.hashSync(req.body.password, 10)
     };
     //Grabar Usuario
     usuario_1.Usuario.create(usuario)

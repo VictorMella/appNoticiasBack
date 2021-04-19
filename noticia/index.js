@@ -46,6 +46,6 @@ server.start(() => {
     console.log(`Servidor Victor corriendo en el puerto ${server.port}`);
 });
 // CORRER PROYECTO
-// nodemon noticias
+// nodemon noticia
 // VISUALIZAR CAMBIOS
 // tsc -w

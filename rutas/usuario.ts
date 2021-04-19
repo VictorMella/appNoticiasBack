@@ -2,7 +2,8 @@ import { Router, Request, Response } from 'express'
 import Token from '../clases/token'
 import { verificarToken } from '../middelwares/autentication'
 import { Usuario } from '../models/usuario'
-const bcrypt = require('bcrypt')
+import { bcrypt } from 'bcrypt'
+// const bcrypt = require('bcrypt')
 
 const usuarioRutas = Router()
 

@@ -14,7 +14,7 @@ export default class FileSystemYo {
                 if (err) {
                     reject()
                 } else {
-                    const mensaje = 'Archivo cuardado correctamente'
+                    const mensaje = 'Archivo guardado correctamente'
                     resolve(mensaje)
                 }
             })

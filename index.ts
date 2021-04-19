@@ -54,6 +54,6 @@ server.start(() => {
 })
 
 // CORRER PROYECTO
-// nodemon noticias
+// nodemon noticia
 // VISUALIZAR CAMBIOS
 // tsc -w

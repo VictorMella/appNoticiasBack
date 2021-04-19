@@ -14,14 +14,12 @@ yoRutas.post('/', verificarToken, (req: any, res: Response) => {
     const body = req.body
     const file = req.files.img
     body.img = file.name
-
     Imgyo.create(body)
         .then(imgYoBD => {
             res.json({
                 ok: true,
                 imgYoBD
             })
-
         })
         .then(() => {
             fileSystemYo.guardarImagenYo(file, req.usuario.nombre)
@@ -31,7 +29,6 @@ yoRutas.post('/', verificarToken, (req: any, res: Response) => {
                 err
             })
         })
-
 })
 
 // MOSTRAR IMAGEN POR URL
@@ -44,24 +41,35 @@ yoRutas.get('/victorMella/:img/:nombreCarpeta', (req: any, res: Response) => {
 
 // MOSTRAR IMAGEN POR URL
 yoRutas.get('/', async (req: any, res: Response) => {
-
     const imagenes = await Imgyo.find()
         .exec()
-
     res.json({
         ok: true,
         imagenes
     })
 })
 
-
 yoRutas.post('/update', verificarToken, (req: any, res: Response) => {
     const file = req.files.img
     fileSystemYo.guardarImagenYo(file, req.usuario.nombre)
-    res.json({
-        ok: true,
-        mensaje: 'Imagen actualizada'
-    })
+        .then(resp => {
+            if (resp) {
+                setTimeout(() => {
+                    res.json({
+                        ok: true,
+                        mensaje: 'Imagen actualizada'
+                    })
+                }, 1500)
+            }
+        })
+        yoRutas.get('/', async (req: any, res: Response) => {
+            const imagenes = await Imgyo.find()
+                .exec()
+            res.json({
+                ok: true,
+                imagenes
+            })
+        })
 })
 
 yoRutas.delete('/:nombreCarpeta/:id/:name', verificarToken, (req: any, res: Response) => {
@@ -75,11 +83,8 @@ yoRutas.delete('/:nombreCarpeta/:id/:name', verificarToken, (req: any, res: Resp
             mensaje: 'Imagen borrada',
             body: imgBorrar
         })
-
         fs.unlinkSync(path.resolve(__dirname, `../upload/${nombreCarpeta}`, name))
     })
 })
-
-
 
 export default yoRutas

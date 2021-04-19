@@ -19,7 +19,7 @@ class FileSystemYo {
                     reject();
                 }
                 else {
-                    const mensaje = 'Archivo cuardado correctamente';
+                    const mensaje = 'Archivo guardado correctamente';
                     resolve(mensaje);
                 }
             });
